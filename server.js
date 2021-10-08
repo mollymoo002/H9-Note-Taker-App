@@ -1,5 +1,9 @@
 // require express to be used in the application
 const express = require('express');
+const fs = require('fs');
+const notes = require("./db/db.json");
+const path = require("path");
+const uuid = require("uuid");
 
 // creates app which is now an instance of express
 const app = express();
