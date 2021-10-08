@@ -1,24 +1,27 @@
+// --------------- Requires ---------------
 // require express to be used in the application
 const express = require('express');
 const fs = require('fs');
 const notes = require("./db/db.json");
 const path = require("path");
 const uuid = require("uuid");
+// --------------- Requires ---------------
 
 // creates app which is now an instance of express
 const app = express();
-
 // this sets up the port for the local server
 const PORT = process.env.PORT || 3000;
 
+// --------------- Middleware ---------------
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+// --------------- Middleware ---------------
 
 // GET function
 app.get("/api/notes", (req, res) => {
-    res/sendFile(path.join(__dirname, "/db/db.json"))
+    res.sendFile(path.join(__dirname, "./db/db.json"))
 });
 
 // POST function
@@ -29,8 +32,9 @@ app.post("/api/notes", (req, res) => {
     newNotes.id = uuid.v4();
     // push the new notes up to the existing notes
     notes.push(newNotes);
-    
+    // this stringifies the notes so we can read them on the page
     fs.writeFileSync("./db/db.json", JSON.stringify(notes))
+    // respond with the json notes
     res.json(notes);
 })
 
