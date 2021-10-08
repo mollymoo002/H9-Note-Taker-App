@@ -12,9 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// adds in the routes files
-require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
+// GET function
+app.get("/api/notes", (req, res) => {
+    res/sendFile(path.join(__dirname, "/db/db.json"))
+});
+
+// POST function
+app.post("/api/notes", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"))
+})
 
 // This prints the port that the app is listening on so we can go to the site
 app.listen(PORT, function() {
