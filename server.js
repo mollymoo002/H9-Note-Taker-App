@@ -42,12 +42,12 @@ app.post("/api/notes", (req, res) => {
 
 // this calls our home page, which is index.html
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // this calls for out notes page, notes.html
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
 // This prints the port that the app is listening on so we can go to the site
