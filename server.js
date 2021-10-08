@@ -34,6 +34,18 @@ app.post("/api/notes", (req, res) => {
     res.json(notes);
 })
 
+// delete
+
+// this calls our home page, which is index.html
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+// this calls for out notes page, notes.html
+app.get("/notes", function (req, res) {
+    res.sendFile(path.join(__dirname, "/public/notes.html"));
+});
+
 // This prints the port that the app is listening on so we can go to the site
 app.listen(PORT, function() {
     console.log(`App listening on PORT: ${PORT}`);
