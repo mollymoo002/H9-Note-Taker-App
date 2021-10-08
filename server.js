@@ -23,7 +23,15 @@ app.get("/api/notes", (req, res) => {
 
 // POST function
 app.post("/api/notes", (req, res) => {
-    const notes = JSON.parse(fs.readFileSync("./db/db.json"))
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const newNotes = req.body;
+    // create a unique identifier for each new note created
+    newNotes.id = uuid.v4();
+    // push the new notes up to the existing notes
+    notes.push(newNotes);
+    
+    fs.writeFileSync("./db/db.json", JSON.stringify(notes))
+    res.json(notes);
 })
 
 // This prints the port that the app is listening on so we can go to the site
