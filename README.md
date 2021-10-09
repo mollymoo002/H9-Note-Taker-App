@@ -1,12 +1,7 @@
 # H9-Note-Taker-App
 ## Description
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
-## Table of Contents (Optional)
-If your README is long, add a table of contents to make it easy for users to find what they need.
+This notes app aims to get you moving and motivated! Add some things you need to do and delete them when you have finished, giving you the satisfaction of a clean to do list. This was a good run through of heroku and getting the server.js to write to the notes file with all the info the user needs. It was tough getting them to call, but I realized I really needed to make sure all of my paths were properly typed because one . could be the difference between the code working and it not working.
+## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
@@ -20,13 +15,14 @@ No installation required, please click [here](https://morning-castle-30206.herok
 - Add as many notes as you want
 - If you wish to delete a note, please click the trash can next to the note
 
-   ```md
-   ![alt text](assets/images/screenshot.png)
-   ```
+   ![Screenshot](public\images\Capture.JPG)
+
 ## Credits
-List your collaborators, if any, with links to their GitHub profiles.
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-If you followed tutorials, include links to those here as well.
+- Ask BCS
+- Instructors
+- Classmates
+- www.npmjs.com
+- W3 Schools
 ## License
 MIT License
 
