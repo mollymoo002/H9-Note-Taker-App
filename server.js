@@ -47,7 +47,6 @@ app.post("/api/notes", (req, res) => {
         };
     
 
-
         // read through the data in db file
         fs.readFile("./db/db.json", "utf-8",  (err, data) => {
             const parsedNotes = JSON.parse(data);
