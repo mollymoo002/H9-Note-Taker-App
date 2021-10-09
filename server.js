@@ -7,6 +7,9 @@ const path = require("path");
 const uuid = require("uuid");
 // --------------- Requires ---------------
 
+import { v4 as uuidv4} from 'uuid';
+uuidv4();
+
 // creates app which is now an instance of express
 const app = express();
 // this sets up the port for the local server
@@ -43,7 +46,7 @@ app.post("/api/notes", (req, res) => {
         const newNote = {
             title,
             text,
-            id: uuid(),
+            id: uuidv4(),
         };
     
 
