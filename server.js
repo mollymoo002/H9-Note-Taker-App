@@ -19,42 +19,46 @@ app.use(express.json());
 app.use(express.static("public"));
 // --------------- Middleware ---------------
 
-// GET function for notes
+const notesArray = [];
+
+// -------------- GET function for notes -------------------
 // this calls for out notes page, notes.html
 app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
 app.get("/api/notes", (req, res) => {
-    fs.readFile("/db/db.json", function (err, data) {
+    fs.readFile("./db/db.json", function (err, data) {
         res.send(data);
     })
 });
+// -------------- GET function for notes -------------------
+
 
 // POST function for notes
 app.post("/api/notes", (req, res) => {
-    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
-    const { title, text } = req.body;// const newNotes = req.body;
+    const { title, text } = req.body;
 
     if (title && text) {
         const newNote = {
             title,
             text,
-            id:uuid(),
-        }
+            id: uuid(),
+        };
     
 
 
-
-        fs.readFile("./db/db.json", "utf-8", function (err, data) {
+        // read through the data in db file
+        fs.readFile("./db/db.json", "utf-8",  (err, data) => {
             const parsedNotes = JSON.parse(data);
-        })
-        // push the new notes up to the existing notes
-        parsedNotes.push(newNote);
+            // push the new notes up to the existing notes
+            parsedNotes.push(newNote);
         // this stringifies the notes so we can read them on the page
-        fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (err) =>
+            fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (err) =>
             err ? console.error(err) : console.log("Note ${newNote.title} has been accepted")
-        );
+            );
+        });
+
     
 
         const response = {
