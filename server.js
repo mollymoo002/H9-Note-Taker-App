@@ -73,7 +73,23 @@ app.post("/api/notes", (req, res) => {
     }
 });
 
-// delete
+// delete the list item
+app.delete("/api/notes/:id", (req, res) => {
+    fs.readFile("./db/db.json", "utf-8", (err, data) => {
+        const parsedNotes = JSON.parse(data);
+
+        for (let i = 0; i < parsedNotes.length; i++) {
+            if (parsedNotes[i].id === req.params.id) {
+                parsedNotes.splice(i, 1);
+                break;
+            }
+        }
+        fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (err) =>
+            err ? console.log(err) : console.log("Note deleted")
+        );
+        return res.json(parsedNotes);
+    })
+})
 
 // this calls our home page, which is index.html
 app.get("*",  (req, res) => {
