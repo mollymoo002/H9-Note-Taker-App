@@ -19,38 +19,64 @@ app.use(express.json());
 app.use(express.static("public"));
 // --------------- Middleware ---------------
 
-// GET function
-app.get("/api/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "/db/db.json"))
-});
-
-// POST function
-app.post("/api/notes", (req, res) => {
-    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
-    const newNotes = req.body;
-    // create a unique identifier for each new note created
-    newNotes.id = uuid.v4();
-    // push the new notes up to the existing notes
-    notes.push(newNotes);
-    // this stringifies the notes so we can read them on the page
-    fs.writeFileSync("./db/db.json", JSON.stringify(notes))
-    // respond with the json notes
-    res.json(notes);
-})
-
-// delete
-
-// this calls our home page, which is index.html
-app.get("/",  (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-
-app.get('/api', (req, res) => res.json(notes));
-
+// GET function for notes
 // this calls for out notes page, notes.html
 app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
+
+app.get("/api/notes", (req, res) => {
+    fs.readFile("/db/db.json", function (err, data) {
+        res.send(data);
+    })
+});
+
+// POST function for notes
+app.post("/api/notes", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const { title, text } = req.body;// const newNotes = req.body;
+
+    if (title && text) {
+        const newNote = {
+            title,
+            text,
+            id:uuid(),
+        }
+    
+
+
+
+        fs.readFile("./db/db.json", "utf-8", function (err, data) {
+            const parsedNotes = JSON.parse(data);
+        })
+        // push the new notes up to the existing notes
+        parsedNotes.push(newNote);
+        // this stringifies the notes so we can read them on the page
+        fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (err) =>
+            err ? console.error(err) : console.log("Note ${newNote.title} has been accepted")
+        );
+    
+
+        const response = {
+            status: "success",
+            body: newNote,
+        };
+
+        console.log(response);
+        res.status(201).json(response);
+    } else {
+        res.status(500).json('Cannot post note');
+    }
+});
+
+// delete
+
+// this calls our home page, which is index.html
+app.get("*",  (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+app.get('/api', (req, res) => res.json(notes));
 
 // This prints the port that the app is listening on so we can go to the site
 app.listen(PORT, () => {
